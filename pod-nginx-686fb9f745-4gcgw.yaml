@@ -1,0 +1,121 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    cni.projectcalico.org/containerID: a241e3e61abfcf9cce7191d7ef387986ab7f08e9565bbbaa9bb7d871ac36ccb0
+    cni.projectcalico.org/podIP: 10.2.2.4/32
+    cni.projectcalico.org/podIPs: 10.2.2.4/32
+    kubectl.kubernetes.io/restartedAt: "2022-09-20T11:55:41Z"
+  creationTimestamp: "2022-09-22T09:43:06Z"
+  generateName: nginx-686fb9f745-
+  labels:
+    app: nginx
+    pod-template-hash: 686fb9f745
+  name: nginx-686fb9f745-4gcgw
+  namespace: default
+  ownerReferences:
+  - apiVersion: apps/v1
+    blockOwnerDeletion: true
+    controller: true
+    kind: ReplicaSet
+    name: nginx-686fb9f745
+    uid: 42a68615-0320-467e-859d-917c0595f0e0
+  resourceVersion: "142296"
+  uid: 57bcf5a8-80d0-4f18-b20e-d4825f8f0149
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-djh6c
+      readOnly: true
+  initContainers:
+  - name: git-cloner
+    image: alpine/git
+    args:
+        - clone
+        - --single-branch
+        - --
+        - https://github.com/ahjamous/templateNginx.git
+        - /usr/share/nginx/html
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: lke73231-112931-632982a8d087
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-djh6c
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T09:43:06Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T09:43:10Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T09:43:10Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-09-22T09:43:06Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: docker://305b1e03d1e56d9e8178c037cd0978894530b7fc67769104d6150eada5a8147f
+    image: nginx:latest
+    imageID: docker-pullable://nginx@sha256:0b970013351304af46f322da1263516b188318682b2ab1091862497591189ff1
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-09-22T09:43:09Z"
+  hostIP: 192.168.187.103
+  phase: Running
+  podIP: 10.2.2.4
+  podIPs:
+  - ip: 10.2.2.4
+  qosClass: BestEffort
+  startTime: "2022-09-22T09:43:06Z"
