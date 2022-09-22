@@ -38,11 +38,11 @@ spec:
   - name: git-cloner
     image: alpine/git
     args:
-        - clone
-        - --single-branch
-        - --
-        - https://github.com/ahjamous/templateNginx.git
-        - /usr/share/nginx/html
+      - clone
+      - --single-branch
+      - --
+      - https://github.com/ahjamous/templateNginx.git
+       - /usr/share/nginx/html
   dnsPolicy: ClusterFirst
   enableServiceLinks: true
   nodeName: lke73231-112931-632982a8d087
